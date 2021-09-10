@@ -101,12 +101,9 @@ class _TabItemState extends State<TabItem> {
                   onTap: () {
                     widget.callbackFunction();
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SvgPicture.asset(
-                      widget.iconPath!,
-                      color: widget.selected ? Colors.white : widget.tabIconColor,
-                    ),
+                  child: SvgPicture.asset(
+                    widget.iconPath!,
+                    color: widget.selected ? Colors.white : widget.tabIconColor,
                   ),
                 ),
               ),

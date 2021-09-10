@@ -125,7 +125,7 @@ class _MotionTabBarState extends State<MotionTabBar>
       alignment: Alignment.topCenter,
       children: <Widget>[
         Container(
-          height: 90,
+          height: 75,
           //margin: EdgeInsets.only(top: 45),
           decoration: BoxDecoration(color: Colors.white, boxShadow: [
             BoxShadow(
@@ -195,10 +195,13 @@ class _MotionTabBarState extends State<MotionTabBar>
                           ),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(0.0),
+                          padding: const EdgeInsets.all(4.0),
                           child: Opacity(
                             opacity: fabIconAlpha,
-                            child: SvgPicture.asset(activeIcon!),
+                            child: SvgPicture.asset(
+                              activeIcon!,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
