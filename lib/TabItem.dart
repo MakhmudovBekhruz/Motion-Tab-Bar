@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 const double ICON_OFF = -3;
 const double ICON_ON = 0;
@@ -9,21 +10,21 @@ const double ALPHA_ON = 1;
 const int ANIM_DURATION = 300;
 
 class TabItem extends StatefulWidget {
-  final String title;
+  final String? title;
   final bool selected;
-  final IconData iconData;
+  final String? iconPath;
   final TextStyle textStyle;
   final Function callbackFunction;
   final Color tabIconColor, tabSelectedColor;
 
   TabItem({
-    @required this.title,
-    @required this.selected,
-    @required this.iconData,
-    @required this.textStyle,
-    @required this.tabIconColor,
-    @required this.tabSelectedColor,
-    @required this.callbackFunction,
+    required this.title,
+    required this.selected,
+    required this.iconPath,
+    required this.textStyle,
+    required this.tabIconColor,
+    required this.tabSelectedColor,
+    required this.callbackFunction,
   });
 
   @override
@@ -70,7 +71,7 @@ class _TabItemState extends State<TabItem> {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  widget.title,
+                  widget.title!,
                   style: widget.textStyle,
                 ),
               ),
@@ -86,15 +87,24 @@ class _TabItemState extends State<TabItem> {
               child: AnimatedOpacity(
                 duration: Duration(milliseconds: ANIM_DURATION),
                 opacity: iconAlpha,
-                child: IconButton(
-                  highlightColor: Colors.transparent,
-                  splashColor: Colors.transparent,
-                  padding: EdgeInsets.all(0),
-                  alignment: Alignment(0, 0),
-                  icon: Icon(widget.iconData, color: widget.tabIconColor),
-                  onPressed: () {
+                // child: IconButton(
+                //   highlightColor: Colors.transparent,
+                //   splashColor: Colors.transparent,
+                //   padding: EdgeInsets.all(0),
+                //   alignment: Alignment(0, 0),
+                //   icon: Icon(widget.iconData, color: widget.tabIconColor),
+                //   onPressed: () {
+                //     widget.callbackFunction();
+                //   },
+                // ),
+                child: InkWell(
+                  onTap: () {
                     widget.callbackFunction();
                   },
+                  child: SvgPicture.asset(
+                    widget.iconPath!,
+                    color: widget.tabIconColor,
+                  ),
                 ),
               ),
             ),

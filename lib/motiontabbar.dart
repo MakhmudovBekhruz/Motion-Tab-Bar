@@ -2,28 +2,28 @@ library motiontabbar;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'TabItem.dart';
 import 'package:vector_math/vector_math.dart' as vector;
 
-typedef MotionTabBuilder = Widget Function(
-);
+typedef MotionTabBuilder = Widget Function();
 
 class MotionTabBar extends StatefulWidget {
   final Color tabIconColor, tabSelectedColor;
   final TextStyle textStyle;
-  final Function onTabItemSelected;
+  final Function? onTabItemSelected;
   final String initialSelectedTab;
 
-  final List<String> labels;
-  final List<IconData> icons;
+  final List<String?> labels;
+  final List<String>? icons;
 
   MotionTabBar({
-    this.textStyle,
-    this.tabIconColor,
-    this.tabSelectedColor,
+    required this.textStyle,
+    required this.tabIconColor,
+    required this.tabSelectedColor,
     this.onTabItemSelected,
-    this.initialSelectedTab,
-    this.labels,
+    required this.initialSelectedTab,
+    required this.labels,
     this.icons,
   })  : assert(initialSelectedTab != null),
         assert(tabSelectedColor != null),
@@ -37,27 +37,29 @@ class MotionTabBar extends StatefulWidget {
 
 class _MotionTabBarState extends State<MotionTabBar>
     with TickerProviderStateMixin {
-  AnimationController _animationController;
-  Tween<double> _positionTween;
-  Animation<double> _positionAnimation;
+  late AnimationController _animationController;
+  late Tween<double> _positionTween;
+  late Animation<double> _positionAnimation;
 
-  AnimationController _fadeOutController;
-  Animation<double> _fadeFabOutAnimation;
-  Animation<double> _fadeFabInAnimation;
+  late AnimationController _fadeOutController;
+  late Animation<double> _fadeFabOutAnimation;
+  late Animation<double> _fadeFabInAnimation;
 
-  List<String> labels;
-  Map<String, IconData> icons;
+  late List<String?> labels;
+  late Map<String?, String> icons;
 
   get tabAmount => icons.keys.length;
+
   get index => labels.indexOf(selectedTab);
+
   get position {
     double pace = 2 / (labels.length - 1);
     return (pace * index) - 1;
   }
 
   double fabIconAlpha = 1;
-  IconData activeIcon;
-  String selectedTab;
+  String? activeIcon;
+  String? selectedTab;
 
   @override
   void initState() {
@@ -67,7 +69,7 @@ class _MotionTabBarState extends State<MotionTabBar>
     icons = Map.fromIterable(
       labels,
       key: (label) => label,
-      value: (label) => widget.icons[labels.indexOf(label)],
+      value: (label) => widget.icons![labels.indexOf(label)],
     );
 
     selectedTab = widget.initialSelectedTab;
@@ -196,10 +198,7 @@ class _MotionTabBarState extends State<MotionTabBar>
                           padding: const EdgeInsets.all(0.0),
                           child: Opacity(
                             opacity: fabIconAlpha,
-                            child: Icon(
-                              activeIcon,
-                              color: Colors.white,
-                            ),
+                            child: SvgPicture.asset(activeIcon!),
                           ),
                         ),
                       ),
@@ -216,11 +215,11 @@ class _MotionTabBarState extends State<MotionTabBar>
 
   List<Widget> generateTabItems() {
     return labels.map((tabLabel) {
-      IconData icon = icons[tabLabel];
+      String? icon = icons[tabLabel];
 
       return TabItem(
         selected: selectedTab == tabLabel,
-        iconData: icon,
+        iconPath: icon,
         title: tabLabel,
         textStyle: widget.textStyle,
         tabSelectedColor: widget.tabSelectedColor,
@@ -229,7 +228,7 @@ class _MotionTabBarState extends State<MotionTabBar>
           setState(() {
             activeIcon = icon;
             selectedTab = tabLabel;
-            widget.onTabItemSelected(index);
+            widget.onTabItemSelected!(index);
           });
           _initAnimationAndStart(_positionAnimation.value, position);
         },
@@ -262,7 +261,7 @@ class HalfPainter extends CustomPainter {
     final Rect beforeRect = Rect.fromLTWH(0, (size.height / 2) - 10, 10, 10);
     final Rect largeRect = Rect.fromLTWH(10, 0, size.width - 20, 70);
     final Rect afterRect =
-    Rect.fromLTWH(size.width - 10, (size.height / 2) - 10, 10, 10);
+        Rect.fromLTWH(size.width - 10, (size.height / 2) - 10, 10, 10);
 
     final path = Path();
     path.arcTo(beforeRect, vector.radians(0), vector.radians(90), false);

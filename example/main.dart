@@ -20,16 +20,16 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, this.title}) : super(key: key);
 
-  final String title;
+  final String? title;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
-  MotionTabController _tabController;
+  MotionTabController? _tabController;
 
   @override
   void initState() {
@@ -40,14 +40,14 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   @override
   void dispose() {
     super.dispose();
-    _tabController.dispose();
+    _tabController!.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(widget.title),
+          title: Text(widget.title!),
         ),
         bottomNavigationBar: MotionTabBar(
           labels: [
@@ -59,11 +59,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           onTabItemSelected: (int value){
             print(value);
             setState(() {
-              _tabController.index = value;
+              _tabController!.index = value;
             });
           },
           icons: [
-            Icons.account_box,Icons.home,Icons.menu
+            "assets/home.svg"
           ],
           textStyle: TextStyle(color: Colors.red),
         ),
