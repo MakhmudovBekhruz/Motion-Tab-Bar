@@ -16,6 +16,7 @@ class TabItem extends StatefulWidget {
   final TextStyle textStyle;
   final Function callbackFunction;
   final Color tabIconColor, tabSelectedColor;
+  final bool isOwnColor;
 
   TabItem({
     required this.title,
@@ -25,6 +26,7 @@ class TabItem extends StatefulWidget {
     required this.tabIconColor,
     required this.tabSelectedColor,
     required this.callbackFunction,
+    required this.isOwnColor,
   });
 
   @override
@@ -103,7 +105,11 @@ class _TabItemState extends State<TabItem> {
                   },
                   child: SvgPicture.asset(
                     widget.iconPath!,
-                    color: widget.selected ? Colors.white : widget.tabIconColor,
+                    color: widget.isOwnColor
+                        ? null
+                        : (widget.selected
+                            ? Colors.white
+                            : widget.tabIconColor),
                   ),
                 ),
               ),

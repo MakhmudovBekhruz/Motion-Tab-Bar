@@ -199,7 +199,9 @@ class _MotionTabBarState extends State<MotionTabBar>
                           ),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(4.0),
+                          padding: (index == widget.noColorTabIndex)
+                              ? EdgeInsets.all(0)
+                              : const EdgeInsets.all(4.0),
                           child: Opacity(
                             opacity: fabIconAlpha,
                             child: SvgPicture.asset(
@@ -233,6 +235,7 @@ class _MotionTabBarState extends State<MotionTabBar>
         textStyle: widget.textStyle,
         tabSelectedColor: widget.tabSelectedColor,
         tabIconColor: widget.tabIconColor,
+        isOwnColor: widget.noColorTabIndex == index,
         callbackFunction: () {
           setState(() {
             activeIcon = icon;
