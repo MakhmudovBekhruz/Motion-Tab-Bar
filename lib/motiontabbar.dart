@@ -235,7 +235,7 @@ class _MotionTabBarState extends State<MotionTabBar>
         textStyle: widget.textStyle,
         tabSelectedColor: widget.tabSelectedColor,
         tabIconColor: widget.tabIconColor,
-        isOwnColor: widget.noColorTabIndex == index,
+        isOwnColor: widget.noColorTabIndex == widget.icons!.indexOf(icon!) ,
         callbackFunction: () {
           setState(() {
             activeIcon = icon;
