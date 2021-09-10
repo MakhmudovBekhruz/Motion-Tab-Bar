@@ -16,6 +16,7 @@ class MotionTabBar extends StatefulWidget {
 
   final List<String?> labels;
   final List<String>? icons;
+  final int? noColorTabIndex;
 
   MotionTabBar({
     required this.textStyle,
@@ -24,6 +25,7 @@ class MotionTabBar extends StatefulWidget {
     this.onTabItemSelected,
     required this.initialSelectedTab,
     required this.labels,
+    this.noColorTabIndex,
     this.icons,
   })  : assert(initialSelectedTab != null),
         assert(tabSelectedColor != null),
@@ -125,7 +127,7 @@ class _MotionTabBarState extends State<MotionTabBar>
       alignment: Alignment.topCenter,
       children: <Widget>[
         Container(
-          height: 75,
+          height: 65,
           //margin: EdgeInsets.only(top: 45),
           decoration: BoxDecoration(color: Colors.white, boxShadow: [
             BoxShadow(
@@ -187,7 +189,9 @@ class _MotionTabBarState extends State<MotionTabBar>
                       child: Container(
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: widget.tabSelectedColor,
+                          color: (index == widget.noColorTabIndex)
+                              ? Colors.white
+                              : widget.tabSelectedColor,
                           border: Border.all(
                             color: Colors.white,
                             width: 5,
