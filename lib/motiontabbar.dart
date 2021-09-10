@@ -125,7 +125,7 @@ class _MotionTabBarState extends State<MotionTabBar>
       alignment: Alignment.topCenter,
       children: <Widget>[
         Container(
-          height: 65,
+          height: 90,
           //margin: EdgeInsets.only(top: 45),
           decoration: BoxDecoration(color: Colors.white, boxShadow: [
             BoxShadow(
