@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 const double ICON_OFF = -3;
 const double ICON_ON = 0;
-const double TEXT_OFF = 2;
-const double TEXT_ON = 0;
+const double TEXT_OFF = 1.5;
+const double TEXT_ON = 0.5;
 const double ALPHA_OFF = 0;
 const double ALPHA_ON = 1;
 const int ANIM_DURATION = 300;
