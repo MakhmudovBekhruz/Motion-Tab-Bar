@@ -204,7 +204,9 @@ class _MotionTabBarState extends State<MotionTabBar>
                             opacity: fabIconAlpha,
                             child: SvgPicture.asset(
                               activeIcon!,
-                              color: Colors.white,
+                              color: (index == widget.noColorTabIndex)
+                                  ? null
+                                  : Colors.white,
                             ),
                           ),
                         ),
