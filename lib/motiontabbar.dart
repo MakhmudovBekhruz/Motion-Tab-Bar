@@ -12,7 +12,7 @@ class MotionTabBar extends StatefulWidget {
   final Color tabIconColor, tabSelectedColor;
   final TextStyle textStyle;
   final Function? onTabItemSelected;
-  final String initialSelectedTab;
+  final String? selectedTab;
 
   final List<String?> labels;
   final List<String>? icons;
@@ -23,15 +23,11 @@ class MotionTabBar extends StatefulWidget {
     required this.tabIconColor,
     required this.tabSelectedColor,
     this.onTabItemSelected,
-    required this.initialSelectedTab,
+    this.selectedTab,
     required this.labels,
     this.noColorTabIndex,
     this.icons,
-  })  : assert(initialSelectedTab != null),
-        assert(tabSelectedColor != null),
-        assert(tabIconColor != null),
-        assert(textStyle != null),
-        assert(labels.contains(initialSelectedTab));
+  });
 
   @override
   _MotionTabBarState createState() => _MotionTabBarState();
@@ -64,6 +60,16 @@ class _MotionTabBarState extends State<MotionTabBar>
   String? selectedTab;
 
   @override
+  void didUpdateWidget(MotionTabBar oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    setState(() {
+      selectedTab = widget.selectedTab;
+      activeIcon = icons[selectedTab];
+    });
+  }
+
+  @override
   void initState() {
     super.initState();
 
@@ -74,7 +80,7 @@ class _MotionTabBarState extends State<MotionTabBar>
       value: (label) => widget.icons![labels.indexOf(label)],
     );
 
-    selectedTab = widget.initialSelectedTab;
+    selectedTab = widget.selectedTab;
     activeIcon = icons[selectedTab];
 
     _animationController = AnimationController(
@@ -235,7 +241,7 @@ class _MotionTabBarState extends State<MotionTabBar>
         textStyle: widget.textStyle,
         tabSelectedColor: widget.tabSelectedColor,
         tabIconColor: widget.tabIconColor,
-        isOwnColor: widget.noColorTabIndex == widget.icons!.indexOf(icon!) ,
+        isOwnColor: widget.noColorTabIndex == widget.icons!.indexOf(icon!),
         callbackFunction: () {
           setState(() {
             activeIcon = icon;
