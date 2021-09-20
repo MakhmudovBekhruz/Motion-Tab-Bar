@@ -60,15 +60,10 @@ class _MotionTabBarState extends State<MotionTabBar>
   String? selectedTab;
 
   @override
-  void didUpdateWidget(MotionTabBar oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    if (widget.selectedTab != null) {
-      setState(() {
-        selectedTab = widget.labels[widget.selectedTab!];
-        activeIcon = icons[selectedTab];
-      });
-    }
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    selectedTab = widget.labels[widget.selectedTab!];
+    activeIcon = icons[selectedTab];
   }
 
   @override
