@@ -61,9 +61,9 @@ class _MotionTabBarState extends State<MotionTabBar>
 
   @override
   void didUpdateWidget(MotionTabBar oldWidget) {
-    super.didUpdateWidget(oldWidget);
     selectedTab = widget.labels[widget.selectedTab!];
     activeIcon = icons[selectedTab];
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
@@ -126,8 +126,6 @@ class _MotionTabBarState extends State<MotionTabBar>
 
   @override
   Widget build(BuildContext context) {
-    selectedTab = widget.labels[widget.selectedTab!];
-    activeIcon = icons[selectedTab];
     return Stack(
       alignment: Alignment.topCenter,
       children: <Widget>[
