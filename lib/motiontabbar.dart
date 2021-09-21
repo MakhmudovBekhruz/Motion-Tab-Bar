@@ -12,7 +12,7 @@ class MotionTabBar extends StatefulWidget {
   final Color tabIconColor, tabSelectedColor;
   final TextStyle textStyle;
   final Function? onTabItemSelected;
-  final int? selectedTab;
+  final String? selectedTab;
 
   final List<String?> labels;
   final List<String>? icons;
@@ -63,12 +63,10 @@ class _MotionTabBarState extends State<MotionTabBar>
   void didUpdateWidget(MotionTabBar oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (widget.selectedTab != null) {
-      setState(() {
-        selectedTab = widget.labels[widget.selectedTab!];
-        activeIcon = icons[selectedTab];
-      });
-    }
+    setState(() {
+      selectedTab = widget.selectedTab;
+      activeIcon = icons[selectedTab];
+    });
   }
 
   @override
@@ -82,7 +80,7 @@ class _MotionTabBarState extends State<MotionTabBar>
       value: (label) => widget.icons![labels.indexOf(label)],
     );
 
-    selectedTab = widget.labels[widget.selectedTab ?? 0];
+    selectedTab = widget.selectedTab;
     activeIcon = icons[selectedTab];
 
     _animationController = AnimationController(
